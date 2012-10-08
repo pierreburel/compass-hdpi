@@ -1,6 +1,7 @@
 # Compass HDPI
 
-Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS
+Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS.  
+Based on [Compass Sprite Base](https://github.com/chriseppstein/compass/blob/stable/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss) ([doc](http://compass-style.org/reference/compass/utilities/sprites/base/)).
 
 
 ## Installation
