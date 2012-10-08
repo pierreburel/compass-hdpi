@@ -1,0 +1,237 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Compass HDPI by pierreburel</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="javascripts/scale.fix.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1 class="header">Compass HDPI</h1>
+        <p class="header">Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS</p>
+
+        <ul>
+          <li class="download"><a class="buttons" href="https://github.com/pierreburel/compass-hdpi/zipball/master">Download ZIP</a></li>
+          <li class="download"><a class="buttons" href="https://github.com/pierreburel/compass-hdpi/tarball/master">Download TAR</a></li>
+          <li><a class="buttons github" href="https://github.com/pierreburel/compass-hdpi">View On GitHub</a></li>
+        </ul>
+
+        <p class="header">This project is maintained by <a class="header name" href="https://github.com/pierreburel">pierreburel</a></p>
+
+
+      </header>
+      <section>
+        <h1>Compass HDPI</h1>
+
+<p>Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS.<br>
+Based on <a href="https://github.com/chriseppstein/compass/blob/stable/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss">Compass Sprite Base</a> (<a href="http://compass-style.org/reference/compass/utilities/sprites/base/">doc</a>).</p>
+
+<h2>Installation</h2>
+
+<p>Add the following lines in your Gemfile :</p>
+
+<pre><code>gem "compass-hdpi", :git =&gt; "git://github.com/pierreburel/compass-hdpi.git"
+gem "compass", "&gt;= 0.12.2"
+gem "sass", "&gt;= 3.2.0"
+</code></pre>
+
+<p>And run </p>
+
+<pre><code>bundle install
+</code></pre>
+
+<p>Or download and copy the extension in the <code>extensions</code> folder in your project directory (or in <code>vendor/plugins/compass_extensions</code> for Rails applications).  </p>
+
+<p>Then, add the following line in your config.rb file :</p>
+
+<pre><code>require "compass-hdpi"
+</code></pre>
+
+<hr><h2>Sprites</h2>
+
+<h3>@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions)</h3>
+
+<p>Include the position and (optionally) dimensions of this <code>$sprite</code> in the given sprite <code>$map</code> and <code>$map-hdpi</code>. The sprite url should come from either a base class or you can specify the <code>sprite-url</code> explicitly like this:</p>
+
+<pre><code>background: $map no-repeat;
+</code></pre>
+
+<h4>Arguments</h4>
+
+<ul>
+<li>
+<code>$map</code>: normal <code>sprite-map</code> </li>
+<li>
+<code>$map-hdpi</code>: HDPI <code>sprite-map</code>
+</li>
+<li>
+<code>$sprite</code>: sprite name</li>
+<li>
+<code>$dimensions</code>: set element dimensions based on sprite size (boolean, default to <code>false</code>)</li>
+</ul><h4>Example</h4>
+
+<pre><code>@import "compass-hdpi";
+
+$icons: sprite-map("icons/*.png");
+$icons-hdpi: $sprite-map("icons@2x/*.png");
+
+.icon-facebook {
+  $background: $icons no-repeat;
+  @include sprite($icons, $icons-hdpi, facebook, true);
+}
+</code></pre>
+
+<h3>@mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix)</h3>
+
+<p>Generates a class for each space separated name in <code>$sprite-names</code>.
+The class will be of the form .-.</p>
+
+<p>If a base class is provided, then each class will extend it.</p>
+
+<p>If <code>$dimensions</code> is <code>true</code>, the sprite dimensions will specified.</p>
+
+<h4>Arguments</h4>
+
+<ul>
+<li>
+<code>$map</code>: normal <code>sprite-map</code> </li>
+<li>
+<code>$map-hdpi</code>: HDPI <code>sprite-map</code>
+</li>
+<li>
+<code>$sprites</code>: sprites names (default to all sprites)</li>
+<li>
+<code>$base-class</code>: class to extend (default to false)</li>
+<li>
+<code>$dimensions</code>: set element dimensions based on sprite size (boolean, default to <code>false</code>)</li>
+<li>
+<code>$prefix</code>: class prefix (default to <code>sprite-map</code> name)</li>
+</ul><h4>Example #1</h4>
+
+<pre><code>@import "compass-hdpi";
+
+$icons: sprite-map("icons/*.png");
+$icons-hdpi: $sprite-map("icons@2x/*.png");
+
+.icon {
+  $background: $icons no-repeat;
+  height: 16px;
+  width: 16px;
+  @include hide-text;
+  @include inline-block;
+}
+@include sprites-hdpi($icons, $icons-hdpi);
+</code></pre>
+
+<h4>Example #2</h4>
+
+<pre><code>@import "compass-hdpi";
+
+$sprites: sprite-map("sprites/*.png");
+$sprites-hdpi: $sprite-map("sprites-hdpi/*.png");
+
+.icons {
+  $background: $sprites no-repeat;
+  @include hide-text;
+  @include inline-block;
+}
+@include sprites-hdpi($sprites, $sprites-hdpi, facebook twitter, ".icons", true, "icon");
+</code></pre>
+
+<hr><h2>Images</h2>
+
+<h3>@mixin background-image-hdpi($image, $image-hdpi, $dimensions)</h3>
+
+<p>Set a normal and HDPI background-image and (optionally) its dimensions</p>
+
+<h4>Arguments</h4>
+
+<ul>
+<li>
+<code>$image</code>: normal image path</li>
+<li>
+<code>$image-hdpi</code>: HDPI image path</li>
+<li>
+<code>$dimensions</code>: set element dimensions based on image size (boolean, default to <code>false</code>)</li>
+</ul><h4>Example</h4>
+
+<pre><code>@import "compass-hdpi";
+
+.logo {
+  @include background-image-hdpi("logo.png", "logo@2x.png", true);
+}
+</code></pre>
+
+<h3>@mixin inline-background-image-hdpi($image, $image-hdpi, $dimensions)</h3>
+
+<p>Set a normal and HDPI inline background-image and (optionally) its dimensions</p>
+
+<h4>Arguments</h4>
+
+<ul>
+<li>
+<code>$image</code>: normal image path</li>
+<li>
+<code>$image-hdpi</code>: HDPI image path</li>
+<li>
+<code>$dimensions</code>: set element dimensions based on image size (boolean, default to <code>false</code>)</li>
+</ul><h4>Example</h4>
+
+<pre><code>@import "compass-hdpi";
+
+.logo {
+  height: 50px;
+  width: 100px;
+  @include inline-background-image-hdpi("logo.png", "hdpi/logo.png");
+}
+</code></pre>
+
+<hr><h2>Configuration and other mixins</h2>
+
+<p>You can override the HDPI media query with the <code>$media-hdpi</code> variable which is by default :</p>
+
+<pre><code>$media-hdpi: "(min--moz-device-pixel-ratio: 1.5),
+  (-o-min-device-pixel-ratio: 3/2),
+  (-webkit-min-device-pixel-ratio: 1.5),
+  (min-device-pixel-ratio: 1.5),
+  (min-resolution: 1.5dppx)" !default;
+</code></pre>
+
+<p>You can then use the <code>media-hdpi</code> mixin to easily target HDPI devices :</p>
+
+<pre><code>.hr {
+  background: blue;
+
+  @include media-hdpi {
+    background: red;
+  }
+}
+</code></pre>
+
+<p>You can force HDPI assets on normal screens by setting the <code>$force-hdpi</code> variable to <code>true</code> (default to <code>false</code>)</p>
+
+<pre><code>$force-hdpi: false !default;
+</code></pre>
+
+<p>You can also totally disable HDPI assets by setting the <code>$disable-hdpi</code> variable to <code>true</code> (default to <code>false</code>)</p>
+
+<pre><code>$disable-hdpi: false !default;
+</code></pre>
+      </section>
+      <footer>
+        <p><small>Hosted on <a href="https://pages.github.com">GitHub Pages</a> using the Dinky theme</small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+		
+  </body>
+</html>
