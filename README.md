@@ -62,8 +62,6 @@ If a base class is provided, then each class will extend it.
 
 If `$dimensions` is `true`, the sprite dimensions will specified.
 
-The mixin 
-
 
 #### Arguments
 
