@@ -1,0 +1,146 @@
+// Media query for HDPI devices
+// Source: http://retinafy.me
+$media-hdpi: "(min--moz-device-pixel-ratio: 1.5),
+  (-o-min-device-pixel-ratio: 3/2),
+  (-webkit-min-device-pixel-ratio: 1.5),
+  (min-device-pixel-ratio: 1.5),
+  (min-resolution: 1.5dppx)" !default;
+
+// Disable HDPI
+$disable-hdpi: false !default;
+
+// Force HDPI
+$force-hdpi: false !default;
+
+// Set background-size property based on an image size
+@mixin image-background-size($image) {
+  @include background-size(image-width($image) image-height($image));
+}
+
+// Set element dimensions based on an image size
+@mixin image-dimensions($image) {
+  height: image-height($image);
+  width: image-width($image);
+}
+
+// Media query block
+@mixin media-hdpi {
+  @if not $disable-hdpi {
+    @if $force-hdpi {
+      @content;
+    } @else {
+      @media #{$media-hdpi} {
+        @content;
+      }
+    }
+  }
+}
+
+
+// Check and fix the possible different `$sprite` position between the normal and the HDPI map
+// @private
+@mixin sprite-background-position-hdpi($map, $map-hdpi, $sprite) {
+  @if round(nth(sprite-position($map-hdpi, $sprite), 1) / 2) != nth(sprite-position($map-hdpi, $sprite), 1) or round(nth(sprite-position($map-hdpi, $sprite), 2) / 2) != nth(sprite-position($map-hdpi, $sprite), 2) {
+    background-position: round(nth(sprite-position($map-hdpi, $sprite), 1) / 2) round(nth(sprite-position($map-hdpi, $sprite), 2) / 2);
+  }
+}
+
+// Sprite selectors position fix
+// @private
+@mixin sprite-selectors-hdpi($map, $map-hdpi, $sprite-name, $full-sprite-name) {
+  @each $selector in $sprite-selectors {
+    @if sprite_has_selector($map, $sprite-name, $selector) {
+      &:#{$selector}, &.#{$full-sprite-name}_#{$selector}, &.#{$full-sprite-name}-#{$selector} {
+          @include sprite-background-position-hdpi($map, $map-hdpi, "#{$sprite-name}_#{$selector}");
+      }
+    }
+  }
+}
+
+
+// Include the position and (optionally) dimensions of this `$sprite`
+// in the given sprite `$map` and `$map-hdpi`. The sprite url should come from either a base
+// class or you can specify the `sprite-url` explicitly like this:
+//
+//     background: $map no-repeat;
+@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false) {
+  background-position: sprite-position($map, $sprite);
+  @if $dimensions {
+    @include sprite-dimensions($map, $sprite);
+  }
+  @if not $disable-magic-sprite-selectors {
+    @include sprite-selectors($map, $sprite, $sprite, $offset-x, $offset-y);
+  }
+  @include media-hdpi {
+    background-image: sprite-url($map-hdpi);
+    @include image-background-size(sprite-path($map));
+    @include sprite-background-position-hdpi($map, $map-hdpi, $sprite);
+    @if not $disable-magic-sprite-selectors {
+      @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite);
+    }
+  }
+}
+
+// Generates a class for each space separated name in `$sprite-names`.
+// The class will be of the form .<map-name>-<sprite-name>.
+//
+// If a base class is provided, then each class will extend it.
+//
+// If `$dimensions` is `true`, the sprite dimensions will specified.
+@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map)) {
+  .#{$prefix} {
+    @if $base-class {
+      @extend #{$base-class}; 
+    }
+  }
+  @each $sprite in $sprites {
+    .#{$prefix}-#{$sprite} {
+      @extend .#{$prefix}; 
+      background-position: sprite-position($map, $sprite);
+      @if $dimensions {
+        @include sprite-dimensions($map, $sprite);
+      }
+      @if not $disable-magic-sprite-selectors {
+        @include sprite-selectors($map, $sprite, $sprite);
+      }
+    }
+  }
+  @include media-hdpi {
+    .#{$prefix} {
+      background-image: sprite-url($map-hdpi);
+      @include image-background-size(sprite-path($map));
+    }
+    @each $sprite in $sprites {
+      .#{$prefix}-#{$sprite} {
+        @include sprite-background-position-hdpi($map, $map-hdpi, $sprite);
+        @if not $disable-magic-sprite-selectors {
+          @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite);
+        }
+      }
+    }
+  }
+}
+
+// Set a normal and HDPI background-image and (optionally) its dimensions
+@mixin background-image-hdpi($image, $image-hdpi, $dimensions: false) {
+  background-image: image-url($image);
+  @if $dimensions {
+    @include image-dimensions($image);
+  }
+  @include media-hdpi {
+    background-image: image-url($image-hdpi);
+    @include background-size-hdpi($image);
+  }
+}
+
+// Same as `background-image-hdpi` but inline
+@mixin inline-background-image-hdpi($image, $image-hdpi, $dimensions: false) {
+  background-image: inline-image($image);
+  @if $dimensions {
+    @include image-dimensions($image);
+  }
+  @include media-hdpi {
+    background-image: inline-image($image-hdpi);
+    @include background-size-hdpi($image);
+  }
+}
