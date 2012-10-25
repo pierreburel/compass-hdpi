@@ -88,14 +88,11 @@ $force-hdpi: false !default;
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
 @mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map)) {
-  .#{$prefix} {
-    @if $base-class {
-      @extend #{$base-class}; 
-    }
-  }
   @each $sprite in $sprites {
     .#{$prefix}-#{$sprite} {
-      @extend .#{$prefix}; 
+      @if $base-class {
+        @extend #{$base-class}; 
+      }
       background-position: sprite-position($map, $sprite);
       @if $dimensions {
         @include sprite-dimensions($map, $sprite);
