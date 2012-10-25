@@ -26,9 +26,9 @@ Then, add the following line in your config.rb file :
 
 ## Sprites
 
-### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions)
+### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions, $set-background-image: false)
 
-Include the position and (optionally) dimensions of this `$sprite` in the given sprite `$map` and `$map-hdpi`. The sprite url should come from either a base class or you can specify the `sprite-url` explicitly like this:
+Include the position and (optionally) dimensions of this `$sprite` in the given sprite `$map` and `$map-hdpi`. The sprite url should come from either a base class or you can specify the `sprite-url` explicitly like this, except if `$set-background-image` is set to true:
 
     background: $map no-repeat;
 
@@ -39,6 +39,7 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
  - `$map-hdpi`: HDPI `sprite-map`
  - `$sprite`: sprite name
  - `$dimensions`: set element dimensions based on sprite size (boolean, default to `false`)
+ - `$set-background-image`: set element `background-image` (boolean, default to `false`)
 
 
 #### Example
@@ -54,7 +55,7 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
     }
 
 
-### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix)
+### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix, $set-background-image: false)
 
 Generates a class for each space separated name in `$sprite-names`.
 The class will be of the form .<map-name>-<sprite-name>.
@@ -72,6 +73,7 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
  - `$base-class`: class to extend (default to false)
  - `$dimensions`: set element dimensions based on sprite size (boolean, default to `false`)
  - `$prefix`: class prefix (default to `sprite-map` name)
+ - `$set-background-image`: set `.prefix` element `background-image` (boolean, default to `false`)
 
 
 #### Example #1
@@ -99,11 +101,10 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
     $sprites-hdpi: $sprite-map("sprites-hdpi/*.png");
 
     .icons {
-      $background: $sprites no-repeat;
       @include hide-text;
       @include inline-block;
     }
-    @include sprites-hdpi($sprites, $sprites-hdpi, facebook twitter, ".icons", true, "icon");
+    @include sprites-hdpi($sprites, $sprites-hdpi, facebook twitter, ".icons", true, "icon", true);
 
 ---
 

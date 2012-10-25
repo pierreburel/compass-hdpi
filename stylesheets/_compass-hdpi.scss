@@ -63,7 +63,10 @@ $force-hdpi: false !default;
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
-@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false) {
+@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $set-background-image: false) {
+  @if $set-background-image {
+    background-image: sprite-url($map);
+  }
   background-position: sprite-position($map, $sprite);
   @if $dimensions {
     @include sprite-dimensions($map, $sprite);
@@ -87,7 +90,12 @@ $force-hdpi: false !default;
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map)) {
+@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $set-background-image: false) {
+  @if $set-background-image {
+    .#{$prefix} {
+      background-image: sprite-url($map);
+    }
+  }
   @each $sprite in $sprites {
     .#{$prefix}-#{$sprite} {
       @if $base-class {
