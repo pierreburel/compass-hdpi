@@ -129,7 +129,7 @@ $force-hdpi: false !default;
   }
   @include media-hdpi {
     background-image: image-url($image-hdpi);
-    @include background-size-hdpi($image);
+    @include image-background-size($image);
   }
 }
 
@@ -141,6 +141,6 @@ $force-hdpi: false !default;
   }
   @include media-hdpi {
     background-image: inline-image($image-hdpi);
-    @include background-size-hdpi($image);
+    @include image-background-size($image);
   }
 }
