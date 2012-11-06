@@ -72,7 +72,7 @@ $force-hdpi: false !default;
     @include sprite-dimensions($map, $sprite);
   }
   @if not $disable-magic-sprite-selectors {
-    @include sprite-selectors($map, $sprite, $sprite, $offset-x, $offset-y);
+    @include sprite-selectors($map, $sprite, $sprite);
   }
   @include media-hdpi {
     background-image: sprite-url($map-hdpi);
@@ -147,5 +147,29 @@ $force-hdpi: false !default;
   @include media-hdpi {
     background-image: inline-image($image-hdpi);
     @include image-background-size($image);
+  }
+}
+
+// Set a SVG as a `background-image` and its fallback based on `.no-svg` and `.no-js` classes added by Modernizr: http://modernizr.com/download/#svg-cssclasses
+// Element's dimenions and `background-size` can be set based on the size of the fallback image
+@mixin background-image-svg($image, $image-fallback, $dimensions: false, $background-size: false, $no-svg: '.no-svg', $no-js: '.no-js') {
+  background-image: image-url($image);
+  @if $image-fallback {
+    @if $dimensions {
+      @include image-dimensions($image-fallback);
+    }
+    @if $background-size {
+      @include image-background-size($image-fallback);
+    }
+    @if $no-js {
+      #{$no-svg} &,
+      #{$no-js} & {
+        background-image: image-url($image-fallback);
+      }
+    } @else {
+      #{$no-svg} & {
+        background-image: image-url($image-fallback);
+      }
+    }
   }
 }

@@ -26,7 +26,7 @@ Then, add the following line in your config.rb file :
 
 ## Sprites
 
-### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions, $set-background-image: false)
+### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions, $set-background-image)
 
 Include the position and (optionally) dimensions of this `$sprite` in the given sprite `$map` and `$map-hdpi`. The sprite url should come from either a base class or you can specify the `sprite-url` explicitly like this, except if `$set-background-image` is set to true:
 
@@ -55,7 +55,7 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
     }
 
 
-### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix, $set-background-image: false)
+### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix, $set-background-image)
 
 Generates a class for each space separated name in `$sprite-names`.
 The class will be of the form .<map-name>-<sprite-name>.
@@ -128,6 +128,7 @@ Set a normal and HDPI background-image and (optionally) its dimensions
 
     .logo {
       @include background-image-hdpi("logo.png", "logo@2x.png", true);
+      @include hide-text;
     }
 
 
@@ -150,7 +151,34 @@ Set a normal and HDPI inline background-image and (optionally) its dimensions
     .logo {
       height: 50px;
       width: 100px;
+      @include hide-text;
       @include inline-background-image-hdpi("logo.png", "hdpi/logo.png");
+    }
+
+
+### @mixin background-image-svg($image, $image-fallback, $dimensions, $background-size, $no-svg, $no-js)
+
+Set a SVG as a `background-image` and its fallback based on `.no-svg` and `.no-js` classes added by [http://modernizr.com/download/#svg-cssclasses](Modernizr)  
+Element's dimenions and `background-size` can be set based on the size of the fallback image
+
+
+#### Arguments
+
+ - `$image`: SVG path
+ - `$image-hdpi`: Fallback image path (PNG)
+ - `$dimensions`: set element dimensions based on fallback image size (boolean, default to `false`)
+ - `$background-size`: set `background-size` based on fallback image size (boolean, default to `false`)
+ - `$no-svg`: CSS class added by Modernizr if SVG images aren't supported by the browser (default to `.no-svg`)
+ - `$no-js`: CSS class added by Modernizr if JavaScript isn't supported by the browser (default to `.no-js`, set to `false` if you don't want JavaScript detection)
+
+
+#### Example
+
+    @import "compass-hdpi";
+
+    .logo {
+      @include background-image-svg("logo.svg", "logo.png", true);
+      @include hide-text;
     }
 
 ---

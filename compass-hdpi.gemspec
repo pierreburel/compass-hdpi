@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 Gem::Specification.new do |gem|
   gem.name          = "compass-hdpi"
-  gem.version       = "1.0"
+  gem.version       = "1.1"
   gem.date          = "2012-09-20"
 
   gem.authors       = ["Pierre Burel"]
