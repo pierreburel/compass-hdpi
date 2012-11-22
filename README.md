@@ -47,10 +47,10 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
     @import "compass-hdpi";
 
     $icons: sprite-map("icons/*.png");
-    $icons-hdpi: $sprite-map("icons@2x/*.png");
+    $icons-hdpi: sprite-map("icons@2x/*.png");
 
     .icon-facebook {
-      $background: $icons no-repeat;
+      background: $icons no-repeat;
       @include sprite($icons, $icons-hdpi, facebook, true);
     }
 
@@ -81,10 +81,10 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
     @import "compass-hdpi";
 
     $icons: sprite-map("icons/*.png");
-    $icons-hdpi: $sprite-map("icons@2x/*.png");
+    $icons-hdpi: sprite-map("icons@2x/*.png");
 
     .icon {
-      $background: $icons no-repeat;
+      background: $icons no-repeat;
       height: 16px;
       width: 16px;
       @include hide-text;
@@ -98,7 +98,7 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
     @import "compass-hdpi";
 
     $sprites: sprite-map("sprites/*.png");
-    $sprites-hdpi: $sprite-map("sprites-hdpi/*.png");
+    $sprites-hdpi: sprite-map("sprites-hdpi/*.png");
 
     .icons {
       @include hide-text;
