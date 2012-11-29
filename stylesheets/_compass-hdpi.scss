@@ -40,8 +40,10 @@ $force-hdpi: false !default;
 // Check and fix the possible different `$sprite` position between the normal and the HDPI map
 // @private
 @mixin sprite-background-position-hdpi($map, $map-hdpi, $sprite) {
-  @if round(nth(sprite-position($map-hdpi, $sprite), 1) / 2) != nth(sprite-position($map-hdpi, $sprite), 1) or round(nth(sprite-position($map-hdpi, $sprite), 2) / 2) != nth(sprite-position($map-hdpi, $sprite), 2) {
-    background-position: round(nth(sprite-position($map-hdpi, $sprite), 1) / 2) round(nth(sprite-position($map-hdpi, $sprite), 2) / 2);
+  $x: round(nth(sprite-position($map-hdpi, $sprite), 1) / 2);
+  $y: round(nth(sprite-position($map-hdpi, $sprite), 2) / 2);
+  @if $x != nth(sprite-position($map, $sprite), 1) or $y != nth(sprite-position($map, $sprite), 2) {
+    background-position: $x $y;
   }
 }
 
