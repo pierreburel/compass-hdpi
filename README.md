@@ -185,13 +185,7 @@ Element's dimenions and `background-size` can be set based on the size of the fa
 
 ## Configuration and other mixins
 
-You can override the HDPI media query with the `$media-hdpi` variable which is by default :
-
-    $media-hdpi: "(min--moz-device-pixel-ratio: 1.5),
-      (-o-min-device-pixel-ratio: 3/2),
-      (-webkit-min-device-pixel-ratio: 1.5),
-      (min-device-pixel-ratio: 1.5),
-      (min-resolution: 1.5dppx)" !default;
+You can change the pixel ratio of the media query by overriding the `$pixel-ratio-hdpi` variable which is by default 1.5.
 
 You can then use the `media-hdpi` mixin to easily target HDPI devices :
 
@@ -202,6 +196,24 @@ You can then use the `media-hdpi` mixin to easily target HDPI devices :
         background: red;
       }
     }
+
+The mixin accepts a temporary pixel ratio as an argument.
+
+    .hr {
+      background: blue;
+
+      @include media-hdpi(2) {
+        background: red;
+      }
+    }
+
+You can also override the whole media query with the `$media-hdpi` variable which is by default (depending of `$pixel-ratio-hdpi`) :
+
+    $media-hdpi: "(min--moz-device-pixel-ratio: 1.5),
+    (-o-min-device-pixel-ratio: 150/100),
+    (-webkit-min-device-pixel-ratio: 1.5),
+    (min-device-pixel-ratio: 1.5),
+    (min-resolution: 1.5dppx)" !default;
 
 You can force HDPI assets on normal screens by setting the `$force-hdpi` variable to `true` (default to `false`)
 
