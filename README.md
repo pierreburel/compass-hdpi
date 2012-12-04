@@ -26,7 +26,7 @@ Then, add the following line in your config.rb file :
 
 ## Sprites
 
-### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions, $set-background-image)
+### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions, $set-background-image, $offset-x, $offset-y)
 
 Include the position and (optionally) dimensions of this `$sprite` in the given sprite `$map` and `$map-hdpi`. The sprite url should come from either a base class or you can specify the `sprite-url` explicitly like this, except if `$set-background-image` is set to true:
 
@@ -55,7 +55,7 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
     }
 
 
-### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix, $set-background-image)
+### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix, $set-background-image, $offset-x, $offset-y)
 
 Generates a class for each space separated name in `$sprite-names`.
 The class will be of the form .<map-name>-<sprite-name>.

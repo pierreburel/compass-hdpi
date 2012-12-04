@@ -39,21 +39,21 @@ $force-hdpi: false !default;
 
 // Check and fix the possible different `$sprite` position between the normal and the HDPI map
 // @private
-@mixin sprite-background-position-hdpi($map, $map-hdpi, $sprite) {
-  $x: round(nth(sprite-position($map-hdpi, $sprite), 1) / 2);
-  $y: round(nth(sprite-position($map-hdpi, $sprite), 2) / 2);
-  @if $x != nth(sprite-position($map, $sprite), 1) or $y != nth(sprite-position($map, $sprite), 2) {
+@mixin sprite-background-position-hdpi($map, $map-hdpi, $sprite, $offset-x: 0, $offset-y: 0) {
+  $x: round(nth(sprite-position($map-hdpi, $sprite, $offset-x*2, $offset-y*2), 1) / 2);
+  $y: round(nth(sprite-position($map-hdpi, $sprite, $offset-x*2, $offset-y*2), 2) / 2);
+  @if $x != nth(sprite-position($map, $sprite, $offset-x, $offset-y), 1) or $y != nth(sprite-position($map, $sprite, $offset-x, $offset-y), 2) {
     background-position: $x $y;
   }
 }
 
 // Sprite selectors position fix
 // @private
-@mixin sprite-selectors-hdpi($map, $map-hdpi, $sprite-name, $full-sprite-name) {
+@mixin sprite-selectors-hdpi($map, $map-hdpi, $sprite-name, $full-sprite-name, $offset-x: 0, $offset-y: 0) {
   @each $selector in $sprite-selectors {
     @if sprite_has_selector($map, $sprite-name, $selector) {
       &:#{$selector}, &.#{$full-sprite-name}_#{$selector}, &.#{$full-sprite-name}-#{$selector} {
-          @include sprite-background-position-hdpi($map, $map-hdpi, "#{$sprite-name}_#{$selector}");
+          @include sprite-background-position-hdpi($map, $map-hdpi, "#{$sprite-name}_#{$selector}", $offset-x, $offset-y);
       }
     }
   }
@@ -65,23 +65,23 @@ $force-hdpi: false !default;
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
-@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $set-background-image: false) {
+@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $set-background-image: false, $offset-x: 0, $offset-y: 0) {
   @if $set-background-image {
     background-image: sprite-url($map);
   }
-  background-position: sprite-position($map, $sprite);
+  background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
   @if $dimensions {
     @include sprite-dimensions($map, $sprite);
   }
   @if not $disable-magic-sprite-selectors {
-    @include sprite-selectors($map, $sprite, $sprite);
+    @include sprite-selectors($map, $sprite, $sprite, $offset-x, $offset-y);
   }
   @include media-hdpi {
     background-image: sprite-url($map-hdpi);
     @include image-background-size(sprite-path($map));
-    @include sprite-background-position-hdpi($map, $map-hdpi, $sprite);
+    @include sprite-background-position-hdpi($map, $map-hdpi, $sprite, $offset-x, $offset-y);
     @if not $disable-magic-sprite-selectors {
-      @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite);
+      @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite, $offset-x, $offset-y);
     }
   }
 }
@@ -92,7 +92,7 @@ $force-hdpi: false !default;
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $set-background-image: false) {
+@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $set-background-image: false, $offset-x: 0, $offset-y: 0) {
   @if $set-background-image {
     .#{$prefix} {
       background-image: sprite-url($map);
@@ -103,12 +103,12 @@ $force-hdpi: false !default;
       @if $base-class {
         @extend #{$base-class}; 
       }
-      background-position: sprite-position($map, $sprite);
+      background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
       @if $dimensions {
         @include sprite-dimensions($map, $sprite);
       }
       @if not $disable-magic-sprite-selectors {
-        @include sprite-selectors($map, $sprite, $sprite);
+        @include sprite-selectors($map, $sprite, $sprite, $offset-x, $offset-y);
       }
     }
   }
@@ -119,9 +119,9 @@ $force-hdpi: false !default;
     }
     @each $sprite in $sprites {
       .#{$prefix}-#{$sprite} {
-        @include sprite-background-position-hdpi($map, $map-hdpi, $sprite);
+        @include sprite-background-position-hdpi($map, $map-hdpi, $sprite, $offset-x, $offset-y);
         @if not $disable-magic-sprite-selectors {
-          @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite);
+          @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite, $offset-x, $offset-y);
         }
       }
     }
