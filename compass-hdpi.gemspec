@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = "compass-hdpi"
-  s.version       = "1.3"
+  s.version       = "1.4"
   s.date          = "2012-12-04"
 
   s.authors       = ["Pierre Burel"]

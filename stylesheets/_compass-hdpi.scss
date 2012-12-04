@@ -22,11 +22,8 @@ $force-hdpi: false !default;
 @mixin media-hdpi($pixel-ratio: $pixel-ratio-hdpi) {
 
   // Default media query
-  $media-hdpi: "(min--moz-device-pixel-ratio: #{$pixel-ratio}),
-  (-o-min-device-pixel-ratio: #{$pixel-ratio*100}/100),
-  (-webkit-min-device-pixel-ratio: #{$pixel-ratio}),
-  (min-device-pixel-ratio: #{$pixel-ratio}),
-  (min-resolution: #{$pixel-ratio}dppx)" !default;
+  // http://www.brettjankord.com/2012/11/28/cross-browser-retinahigh-resolution-media-queries/
+  $media-hdpi: "(-webkit-min-device-pixel-ratio: #{$pixel-ratio}), (min-resolution: #{$pixel-ratio*96}dpi)" !default;
 
   @if not $disable-hdpi {
     @if $force-hdpi {
