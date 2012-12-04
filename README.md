@@ -6,6 +6,8 @@ Based on [Compass Sprite Base](https://github.com/chriseppstein/compass/blob/sta
 
 ## Installation
 
+### With Bundler
+
 Add the following lines in your Gemfile :
 
     gem "compass-hdpi", :git => "git://github.com/pierreburel/compass-hdpi.git"
@@ -16,11 +18,13 @@ And run
 
     bundle install
 
-Or download and copy the extension in the `extensions` folder in your project directory (or in `vendor/plugins/compass_extensions` for Rails applications).  
-
 Then, add the following line in your config.rb file :
 
     require "compass-hdpi"
+
+### Manually
+
+Simply download and copy `stylesheets/_compass-hdpi.scss` in your `sass` directory. But you really should use [RVM](https://rvm.io/) and [Bundler](http://gembundler.com/).
 
 ---
 
