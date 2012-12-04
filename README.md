@@ -58,7 +58,7 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
 ### @mixin sprites-hdpi($map, $map-hdpi, $sprites, $base-class, $dimensions, $prefix, $set-background-image, $offset-x, $offset-y)
 
 Generates a class for each space separated name in `$sprite-names`.
-The class will be of the form .<map-name>-<sprite-name>.
+The class will be of the form `.<map-name>-<sprite-name>`
 
 If a base class is provided, then each class will extend it.
 
@@ -190,20 +190,20 @@ You can change the pixel ratio of the media query by overriding the `$pixel-rati
 You can then use the `media-hdpi` mixin to easily target HDPI devices :
 
     .hr {
-      background: blue;
+      height: 1px;
 
       @include media-hdpi {
-        background: red;
+        height: 2px;
       }
     }
 
 The mixin accepts a temporary pixel ratio as an argument.
 
     .hr {
-      background: blue;
+      height: 1px;
 
       @include media-hdpi(2) {
-        background: red;
+        height: 2px;
       }
     }
 
