@@ -1,20 +1,16 @@
-# -*- encoding: utf-8 -*-
-Gem::Specification.new do |gem|
-  gem.name          = "compass-hdpi"
-  gem.version       = "1.2"
-  gem.date          = "2012-09-20"
+Gem::Specification.new do |s|
+  s.name          = "compass-hdpi"
+  s.version       = "1.3"
+  s.date          = "2012-12-04"
 
-  gem.authors       = ["Pierre Burel"]
-  gem.email         = ["pierre.burel@gmail.com"]
-  gem.description   = "Compass HDPI"
-  gem.summary       = "Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS"
-  gem.homepage      = "http://github.com/pierreburel.com/compass-hdpi"
+  s.authors       = ["Pierre Burel"]
+  s.email         = ["pierre.burel@gmail.com"]
+  s.description   = %q{Compass HDPI}
+  s.summary       = %q{Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS}
+  s.homepage      = "http://github.com/pierreburel.com/compass-hdpi"
 
-  gem.files         = ["README.md", Dir.glob("lib/*.*"), Dir.glob("stylesheets/*.*")]
+  s.files         = ["README.md", Dir.glob("lib/*.*"), Dir.glob("stylesheets/*.*")]
 
-  gem.required_rubygems_version = ">= 1.3.6"
-  gem.rubygems_version = "1.3.6"
-
-  gem.add_dependency("compass", [">= 0.12.2"])
-  gem.add_dependency("sass", [">= 3.2.0"])
+  s.add_dependency("sass", [">= 3.2.0"])
+  s.add_dependency("compass", [">= 0.12.2"])
 end
