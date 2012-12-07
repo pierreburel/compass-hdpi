@@ -1,9 +1,8 @@
 Gem::Specification.new do |s|
   s.name          = "compass-hdpi"
   s.version       = "1.4b"
-  s.date          = "2012-12-07"
 
-  s.authors       = "Pierre Burel"
+  s.author        = "Pierre Burel"
   s.email         = "pierre.burel@gmail.com"
   s.description   = "Compass HDPI"
   s.summary       = "Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS"
