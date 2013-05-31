@@ -65,9 +65,10 @@ $force-hdpi: false !default;
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
-@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $set-background-image: false, $offset-x: 0, $offset-y: 0) {
-  @if $set-background-image {
+@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0, $set-background: false) {
+  @if $set-background {
     background-image: sprite-url($map);
+    background-repeat: no-repeat;
   }
   background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
   @if $dimensions {
@@ -92,10 +93,11 @@ $force-hdpi: false !default;
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $set-background-image: false, $offset-x: 0, $offset-y: 0) {
-  @if $set-background-image {
+@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0, $set-background: false) {
+  @if $set-background {
     .#{$prefix} {
       background-image: sprite-url($map);
+      background-repeat: no-repeat;
     }
   }
   @each $sprite in $sprites {
@@ -149,29 +151,5 @@ $force-hdpi: false !default;
   @include media-hdpi {
     background-image: inline-image($image-hdpi);
     @include image-background-size($image);
-  }
-}
-
-// Set a SVG as a `background-image` and its fallback based on `.no-svg` and `.no-js` classes added by Modernizr: http://modernizr.com/download/#svg-cssclasses
-// Element's dimenions and `background-size` can be set based on the size of the fallback image
-@mixin background-image-svg($image, $image-fallback, $dimensions: false, $background-size: false, $no-svg: '.no-svg', $no-js: '.no-js') {
-  background-image: image-url($image);
-  @if $image-fallback {
-    @if $dimensions {
-      @include image-dimensions($image-fallback);
-    }
-    @if $background-size {
-      @include image-background-size($image-fallback);
-    }
-    @if $no-js {
-      #{$no-svg} &,
-      #{$no-js} & {
-        background-image: image-url($image-fallback);
-      }
-    } @else {
-      #{$no-svg} & {
-        background-image: image-url($image-fallback);
-      }
-    }
   }
 }

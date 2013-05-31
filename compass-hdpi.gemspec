@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = "compass-hdpi"
-  s.version = "1.5"
+  s.version = "1.6"
 
   s.author = "Pierre Burel"
   s.email = "pierre.burel@gmail.com"
