@@ -7,6 +7,10 @@ $disable-hdpi: false !default;
 // Force HDPI
 $force-hdpi: false !default;
 
+// This must be set if using a generated images folder. This is a workaround for
+// a compass 0.12.2 bug. https://github.com/chriseppstein/compass/issues/1077
+//$generated-image-folder: "generated";
+
 // Set background-size property based on an image size
 @mixin image-background-size($image) {
   @include background-size(image-width($image) image-height($image));
@@ -79,7 +83,13 @@ $force-hdpi: false !default;
   }
   @include media-hdpi {
     background-image: sprite-url($map-hdpi);
-    @include image-background-size(sprite-path($map));
+    // Workaround for compass 0.12.2 bug. See above.
+    @if $generated-image-folder {
+      @include image-background-size($generated-image-folder + "/" + sprite-path($map));
+    }
+    @else {
+      @include image-background-size(sprite-path($map));
+    }
     @include sprite-background-position-hdpi($map, $map-hdpi, $sprite, $offset-x, $offset-y);
     @if not $disable-magic-sprite-selectors {
       @include sprite-selectors-hdpi($map, $map-hdpi, $sprite, $sprite, $offset-x, $offset-y);
@@ -103,7 +113,7 @@ $force-hdpi: false !default;
   @each $sprite in $sprites {
     .#{$prefix}-#{$sprite} {
       @if $base-class {
-        @extend #{$base-class}; 
+        @extend #{$base-class};
       }
       background-position: sprite-position($map, $sprite, $offset-x, $offset-y);
       @if $dimensions {
@@ -117,7 +127,13 @@ $force-hdpi: false !default;
   @include media-hdpi {
     .#{$prefix} {
       background-image: sprite-url($map-hdpi);
-      @include image-background-size(sprite-path($map));
+      // Workaround for compass 0.12.2 bug. See above.
+      @if $generated-image-folder {
+        @include image-background-size($generated-image-folder + "/" + sprite-path($map));
+      }
+      @else {
+        @include image-background-size(sprite-path($map));
+      }
     }
     @each $sprite in $sprites {
       .#{$prefix}-#{$sprite} {
