@@ -7,9 +7,11 @@ $disable-hdpi: false !default;
 // Force HDPI
 $force-hdpi: false !default;
 
-// This must be set if using a generated images folder. This is a workaround for
-// a compass 0.12.2 bug. https://github.com/chriseppstein/compass/issues/1077
-//$generated-image-folder: "generated";
+// This must be set to generated images folder relative to images set in
+// config.rb if using a generated images folder. E.g 'generated'.
+// This is a workaround for a compass 0.12.2 bug.
+// @see https://github.com/chriseppstein/compass/issues/1077
+$generated-image-folder: false !default;
 
 // Set background-size property based on an image size
 @mixin image-background-size($image) {
