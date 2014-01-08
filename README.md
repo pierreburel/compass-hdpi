@@ -30,7 +30,7 @@ Simply download and copy `stylesheets/_compass-hdpi.scss` in your `sass` directo
 
 ## Sprites
 
-### @mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions, $offset-x, $offset-y, $set-background-image)
+### @mixin sprite-hdpi($sprite, $map, $map-hdpi, $dimensions, $offset-x, $offset-y, $set-background-image)
 
 Include the position and (optionally) dimensions of this `$sprite` in the given sprite `$map` and `$map-hdpi`. The sprite url should come from either a base class or you can specify the `sprite-url` explicitly like this, except if `$set-background-image` is set to true:
 
@@ -39,9 +39,9 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
 
 #### Arguments
 
+ - `$sprite`: sprite name
  - `$map`: normal `sprite-map`
  - `$map-hdpi`: HDPI `sprite-map`
- - `$sprite`: sprite name
  - `$dimensions`: set element dimensions based on sprite size (boolean, default to `false`)
  - `$set-background`: set `.prefix` element default `background-image` and `background-repeat` (boolean, default to `false`)
 
@@ -55,7 +55,25 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
 
     .icon-facebook {
       background: $icons no-repeat;
-      @include sprite($icons, $icons-hdpi, facebook, true);
+      @include sprite-hdpi(facebook, $icons, $icons-hdpi);
+    }
+
+You can also set the default maps using `$sprite-hdpi-default-map` and `$prite-hdpi-defailt-map-hdpi`
+
+
+#### Example
+
+    @import "compass-hdpi";
+
+    $icons: sprite-map("icons/*.png");
+    $icons-hdpi: sprite-map("icons@2x/*.png");
+
+    $sprite-hdpi-default-map: $icons;
+    $sprite-hdpi-default-map-hdpi: $icons-hdpi;
+
+    .icon-facebook {
+      background: $icons no-repeat;
+      @include sprite-hdpi(facebook);
     }
 
 
@@ -206,6 +224,11 @@ You can force HDPI assets on normal screens by setting the `$force-hdpi` variabl
 You can also totally disable HDPI assets by setting the `$disable-hdpi` variable to `true` (default to `false`)
 
     $disable-hdpi: false !default;
+
+You can dset the default maps when using `sprite-hdpi()` by setting the `$background-hdpi-default-map` and `$background-hdpi-default-map-hdpi` variables to your desired default maps. (default to `false`)
+
+    $sprite-hdpi-default-map: false !default;
+    $sprite-hdpi-default-map-hdpi: false !default;
 
 You can disable the dimension styles by default when using `sprite-hdpi()` by setting the `$background-hdpi-dimensions` variable to `false` (default to `true`)
 
