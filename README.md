@@ -205,10 +205,18 @@ You can also totally disable HDPI assets by setting the `$disable-hdpi` variable
 
     $disable-hdpi: false !default;
 
-You can set the dimension styles by default when using background-hdpi() by setting the `$background-hdpi-dimensions` variable to `true` (default to `false`)
+You can disable the dimension styles by default when using `sprite-hdpi()` by setting the `$background-hdpi-dimensions` variable to `false` (default to `true`)
+
+    $sprite-hdpi-dimensions: true !default;
+
+You can set the background image by default when using `sprite-hdpi()` by setting the `$sprite-hdpi-set-background` variable to `true` (default to `false`)
+
+    $sprite-hdpi-set-background: false !default;
+
+You can set the dimension styles by default when using `background-hdpi()` and `inline-background-hdpi()` by setting the `$background-hdpi-dimensions` variable to `true` (default to `false`)
 
     $background-hdpi-dimensions: false !default;
 
-If using a generated images folder and compass 0.12.2, the `$generated-image-folder` variable must be set to the generated images folder relative to images folder set in config.rb, for example 'generated' (default to `false`)
+If using a generated images folder and compass 0.12.2, the `$generated-image-folder` variable must be set to the generated images folder relative to images folder set in config.rb, for example `'generated'` (default to `false`)
 
     $generated-image-folder: false !default;

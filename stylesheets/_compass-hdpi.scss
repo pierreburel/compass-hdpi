@@ -7,7 +7,14 @@ $disable-hdpi: false !default;
 // Force HDPI
 $force-hdpi: false !default;
 
-// Generate dimension styles when using background-hdpi().
+// Generate dimension styles when using sprite-hdpi().
+$sprite-hdpi-dimensions: true !default;
+
+// Set background image when using sprite-hdpi().
+$sprite-hdpi-set-background: false !default;
+
+// Generate dimension styles when using background-hdpi() and
+// inline-background-hdpi().
 $background-hdpi-dimensions: false !default;
 
 // This must be set to generated images folder relative to images set in
@@ -74,7 +81,7 @@ $generated-image-folder: false !default;
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
-@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0, $set-background: false) {
+@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: $sprite-hdpi-dimensions, $offset-x: 0, $offset-y: 0, $set-background: $sprite-hdpi-set-background) {
   @if $set-background {
     background-image: sprite-url($map);
     background-repeat: no-repeat;
@@ -108,7 +115,7 @@ $generated-image-folder: false !default;
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0, $set-background: false) {
+@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: $sprite-hdpi-dimensions, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0, $set-background: $sprite-hdpi-set-background) {
   @if $set-background {
     .#{$prefix} {
       background-image: sprite-url($map);
