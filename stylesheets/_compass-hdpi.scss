@@ -160,14 +160,12 @@ $generated-image-folder: false !default;
 
 // Set a normal and HDPI background and optionally, attributes and dimensions.
 //
-// @param {String} $image normal image path
-// @param {String} $image-hdpi HDPI image path.
-// @param {Object} $attr additional background property values.
-// @param {Boolean} $dimensions specify image dimensions.
-@mixin background-hdpi($image, $image-hdpi, $attr: '', $dimensions: $background-hdpi-dimensions) {
+// If `$attributes` is `true`, background attributes will be specified.
+// If `$dimensions` is `true`, the sprite dimensions will specified.
+@mixin background-hdpi($image, $image-hdpi, $attributes: '', $dimensions: $background-hdpi-dimensions) {
   background-image: image-url($image);
-  @if $attr != '' {
-    background: $attr;
+  @if $attributes != '' {
+    background: $attributes;
   }
   @if $dimensions {
     @include image-dimensions($image);
@@ -179,10 +177,10 @@ $generated-image-folder: false !default;
 }
 
 // Same as `background-hdpi` but inline.
-@mixin inline-background-hdpi($image, $image-hdpi, $attr: '', $dimensions: $background-hdpi-dimensions) {
+@mixin inline-background-hdpi($image, $image-hdpi, $attributes: '', $dimensions: $background-hdpi-dimensions) {
   background-image: inline-image($image);
   @if $attr != '' {
-    background: $attr;
+    background: $attributes
   }
   @if $dimensions {
     @include image-dimensions($image);

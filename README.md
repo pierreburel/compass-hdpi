@@ -114,15 +114,15 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
 
 ## Images
 
-### @mixin background-hdpi($image, $image-hdpi, $dimensions)
+### @mixin background-hdpi($image, $image-hdpi, $attributes, $dimensions)
 
 Set a normal and HDPI background and optionally, attributes and dimensions.
 
 #### Arguments
 
- - `$image`: normal image path.
- - `$image`: HDPI image path.
- - `$attr`: Additional background property values (default to '')
+ - `$image`: normal image path
+ - `$image-hdpi`: HDPI image path
+ - `$attributes`: Additional background property values (default to '')
  - `$dimensions`: set element dimensions based on image size (boolean, default to `false`)
 
 
@@ -131,20 +131,20 @@ Set a normal and HDPI background and optionally, attributes and dimensions.
     @import "compass-hdpi";
 
     .logo {
-      @include background-image-hdpi(icons/logo.png, icons/logo@2x.png, no-repeat top left);
+      @include background-hdpi(icons/logo.png, icons/logo@2x.png, no-repeat top left);
     }
 
 
-### @mixin inline-background-hdpi($image, $image-hdpi, $dimensions)
+### @mixin inline-background-hdpi($image, $image-hdpi, $attributes, $dimensions)
 
 Set a normal and HDPI inline background and optionally, attributes and dimensions.
 
 
 #### Arguments
 
- - `$image`: normal image path.
- - `$image`: HDPI image path.
- - `$attr`: Additional background property values (default to '')
+ - `$image`: normal image path
+ - `$image-hdpi`: HDPI image path
+ - `$attributes`: Additional background property values (default to '')
  - `$dimensions`: set element dimensions based on image size (boolean, default to `false`)
 
 
@@ -153,7 +153,7 @@ Set a normal and HDPI inline background and optionally, attributes and dimension
     @import "compass-hdpi";
 
     .logo {
-      @include inline-background-image-hdpi(icons/logo.png, icons/logo@2x.png, no-repeat top left, true);
+      @include inline-background-hdpi(icons/logo.png, icons/logo@2x.png, no-repeat top left, true);
       @include hide-text;
     }
 
