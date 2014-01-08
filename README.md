@@ -114,13 +114,14 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
 
 ## Images
 
-### @mixin background-image-hdpi($image, $image-hdpi, $dimensions)
+### @mixin background-hdpi($image, $image-hdpi, $dimensions)
 
-Set a normal and HDPI background and optionally, attributes and dimensions. You must have a {filename}-x2.png file in the same directory and twice the size as your {filename}.png file.
+Set a normal and HDPI background and optionally, attributes and dimensions.
 
 #### Arguments
 
- - `$image`: normal image path without file extension.
+ - `$image`: normal image path.
+ - `$image`: HDPI image path.
  - `$attr`: Additional background property values (default to '')
  - `$dimensions`: set element dimensions based on image size (boolean, default to `false`)
 
@@ -130,18 +131,19 @@ Set a normal and HDPI background and optionally, attributes and dimensions. You 
     @import "compass-hdpi";
 
     .logo {
-      @include background-image-hdpi(icons/logo, no-repeat top left);
+      @include background-image-hdpi(icons/logo.png, icons/logo@2x.png, no-repeat top left);
     }
 
 
-### @mixin inline-background-image-hdpi($image, $image-hdpi, $dimensions)
+### @mixin inline-background-hdpi($image, $image-hdpi, $dimensions)
 
-Set a normal and HDPI inline background and optionally, attributes and dimensions. You must have a {filename}-x2.png file in the same directory and twice the size as your {filename}.png file.
+Set a normal and HDPI inline background and optionally, attributes and dimensions.
 
 
 #### Arguments
 
- - `$image`: normal image path without file extension.
+ - `$image`: normal image path.
+ - `$image`: HDPI image path.
  - `$attr`: Additional background property values (default to '')
  - `$dimensions`: set element dimensions based on image size (boolean, default to `false`)
 
@@ -151,7 +153,7 @@ Set a normal and HDPI inline background and optionally, attributes and dimension
     @import "compass-hdpi";
 
     .logo {
-      @include inline-background-image-hdpi(icons/logo, no-repeat top left, true);
+      @include inline-background-image-hdpi(icons/logo.png, icons/logo@2x.png, no-repeat top left, true);
       @include hide-text;
     }
 
