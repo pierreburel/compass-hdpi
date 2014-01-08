@@ -1,6 +1,6 @@
 # Compass HDPI
 
-Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS.  
+Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS.
 Based on [Compass Sprite Base](https://github.com/chriseppstein/compass/blob/stable/frameworks/compass/stylesheets/compass/utilities/sprites/_base.scss) ([doc](http://compass-style.org/reference/compass/utilities/sprites/base/)).
 
 
@@ -14,7 +14,7 @@ Add the following lines in your Gemfile :
     gem "compass", ">= 0.12.2"
     gem "sass", ">= 3.2.0"
 
-And run 
+And run
 
     bundle install
 
@@ -39,7 +39,7 @@ Include the position and (optionally) dimensions of this `$sprite` in the given 
 
 #### Arguments
 
- - `$map`: normal `sprite-map` 
+ - `$map`: normal `sprite-map`
  - `$map-hdpi`: HDPI `sprite-map`
  - `$sprite`: sprite name
  - `$dimensions`: set element dimensions based on sprite size (boolean, default to `false`)
@@ -71,7 +71,7 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
 
 #### Arguments
 
- - `$map`: normal `sprite-map` 
+ - `$map`: normal `sprite-map`
  - `$map-hdpi`: HDPI `sprite-map`
  - `$sprites`: sprites names (default to all sprites)
  - `$base-class`: class to extend (default to false)
@@ -98,7 +98,7 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
 
 
 #### Example #2
-    
+
     @import "compass-hdpi";
 
     $sprites: sprite-map("sprites/*.png");
@@ -116,13 +116,12 @@ If `$dimensions` is `true`, the sprite dimensions will specified.
 
 ### @mixin background-image-hdpi($image, $image-hdpi, $dimensions)
 
-Set a normal and HDPI background-image and (optionally) its dimensions
-
+Set a normal and HDPI background and optionally, attributes and dimensions. You must have a {filename}-x2.png file in the same directory and twice the size as your {filename}.png file.
 
 #### Arguments
 
- - `$image`: normal image path
- - `$image-hdpi`: HDPI image path
+ - `$image`: normal image path without file extension.
+ - `$attr`: Additional background property values (default to '')
  - `$dimensions`: set element dimensions based on image size (boolean, default to `false`)
 
 
@@ -131,20 +130,19 @@ Set a normal and HDPI background-image and (optionally) its dimensions
     @import "compass-hdpi";
 
     .logo {
-      @include background-image-hdpi("logo.png", "logo@2x.png", true);
-      @include hide-text;
+      @include background-image-hdpi(icons/logo, no-repeat top left);
     }
 
 
 ### @mixin inline-background-image-hdpi($image, $image-hdpi, $dimensions)
 
-Set a normal and HDPI inline background-image and (optionally) its dimensions
+Set a normal and HDPI inline background and optionally, attributes and dimensions. You must have a {filename}-x2.png file in the same directory and twice the size as your {filename}.png file.
 
 
 #### Arguments
 
- - `$image`: normal image path
- - `$image-hdpi`: HDPI image path
+ - `$image`: normal image path without file extension.
+ - `$attr`: Additional background property values (default to '')
  - `$dimensions`: set element dimensions based on image size (boolean, default to `false`)
 
 
@@ -153,10 +151,8 @@ Set a normal and HDPI inline background-image and (optionally) its dimensions
     @import "compass-hdpi";
 
     .logo {
-      height: 50px;
-      width: 100px;
+      @include inline-background-image-hdpi(icons/logo, no-repeat top left, true);
       @include hide-text;
-      @include inline-background-image-hdpi("logo.png", "hdpi/logo.png");
     }
 
 ---
@@ -191,8 +187,8 @@ You can also override the whole media query with the `$media-hdpi` variable whic
 
     $media-hdpi: "(-webkit-min-device-pixel-ratio: 1.5), (min-resolution: 144dpi)" !default;
 
-For exemple, you can use [Thomas Fuchs](http://retinafy.me/) media query : 
-    
+For exemple, you can use [Thomas Fuchs](http://retinafy.me/) media query :
+
     $media-hdpi: "(min--moz-device-pixel-ratio: 1.5),
       (-o-min-device-pixel-ratio: 150/100),
       (-webkit-min-device-pixel-ratio: 1.5),
@@ -208,3 +204,11 @@ You can force HDPI assets on normal screens by setting the `$force-hdpi` variabl
 You can also totally disable HDPI assets by setting the `$disable-hdpi` variable to `true` (default to `false`)
 
     $disable-hdpi: false !default;
+
+You can set the dimension styles by default when using background-hdpi() by setting the `$background-hdpi-dimensions` variable to `true` (default to `false`)
+
+    $background-hdpi-dimensions: false !default;
+
+If using a generated images folder and compass 0.12.2, the `$generated-image-folder` variable must be set to the generated images folder relative to images folder set in config.rb, for example 'generated' (default to `false`)
+
+    $generated-image-folder: false !default;

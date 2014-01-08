@@ -7,6 +7,9 @@ $disable-hdpi: false !default;
 // Force HDPI
 $force-hdpi: false !default;
 
+// Generate dimension styles when using background-hdpi().
+$background-hdpi-dimensions: false !default;
+
 // This must be set to generated images folder relative to images set in
 // config.rb if using a generated images folder. E.g 'generated'.
 // This is a workaround for a compass 0.12.2 bug.
@@ -148,26 +151,51 @@ $generated-image-folder: false !default;
   }
 }
 
-// Set a normal and HDPI background-image and (optionally) its dimensions
-@mixin background-image-hdpi($image, $image-hdpi, $dimensions: false) {
+// Set a normal and HDPI background and optionally, attributes and dimensions.
+//
+// You must have a {filename}-x2 file in the same directory and twice the size
+// as your {filename} file.
+//
+// Example:
+//   li {
+//     @include background-hdpi(logo);
+//   }
+//   .facebook-icon {
+//     @include background-hdpi(social/facebook, #fff no-repeat right);
+//   }
+//
+// @param {String} $image normal image path without file extension.
+// @param {Object} $attr additional background property values.
+// @param {Boolean} $dimensions specify image dimensions.
+@mixin background-hdpi($image, $attr: '', $dimensions: $background-hdpi-dimensions) {
+  $image-hdpi: $image + "-x2.png";
+  $image: $image + ".png";
   background-image: image-url($image);
+  @if $attr != '' {
+    background: $attr;
+  }
   @if $dimensions {
     @include image-dimensions($image);
   }
   @include media-hdpi {
     background-image: image-url($image-hdpi);
-    @include image-background-size($image);
+    @include background-size(image-width($image) image-height($image));
   }
 }
 
-// Same as `background-image-hdpi` but inline
-@mixin inline-background-image-hdpi($image, $image-hdpi, $dimensions: false) {
+// Same as `background-hdpi` but inline.
+@mixin inline-background-hdpi($image, $attr: '', $dimensions: $background-hdpi-dimensions) {
+  $image-hdpi: $image + "-x2.png";
+  $image: $image + ".png";
   background-image: inline-image($image);
+  @if $attr != '' {
+    background: $attr;
+  }
   @if $dimensions {
     @include image-dimensions($image);
   }
   @include media-hdpi {
     background-image: inline-image($image-hdpi);
-    @include image-background-size($image);
+    @include background-size(image-width($image) image-height($image));
   }
 }
