@@ -7,6 +7,23 @@ $disable-hdpi: false !default;
 // Force HDPI
 $force-hdpi: false !default;
 
+// Declare the default map to use for when using sprite-hdpi().
+$sprite-hdpi-default-map: false !default;
+
+// Declare the default HDPI map to use for when using sprite-hdpi().
+$sprite-hdpi-default-map-hdpi: false !default;
+
+// Generate dimension styles when using sprite-hdpi().
+$sprite-hdpi-dimensions: true !default;
+
+// Set background image when using sprite-hdpi().
+$sprite-hdpi-set-background: false !default;
+
+
+// Generate dimension styles when using background-hdpi() and
+// inline-background-hdpi().
+$background-hdpi-dimensions: false !default;
+
 // This must be set to generated images folder relative to images set in
 // config.rb if using a generated images folder. E.g 'generated'.
 // This is a workaround for a compass 0.12.2 bug.
@@ -71,7 +88,7 @@ $generated-image-folder: false !default;
 // class or you can specify the `sprite-url` explicitly like this:
 //
 //     background: $map no-repeat;
-@mixin sprite-hdpi($map, $map-hdpi, $sprite, $dimensions: false, $offset-x: 0, $offset-y: 0, $set-background: false) {
+@mixin sprite-hdpi($sprite, $map: $sprite-hdpi-default-map, $map-hdpi: $sprite-hdpi-default-map-hdpi, $dimensions: $sprite-hdpi-dimensions, $offset-x: 0, $offset-y: 0, $set-background: $sprite-hdpi-set-background) {
   @if $set-background {
     background-image: sprite-url($map);
     background-repeat: no-repeat;
@@ -105,7 +122,7 @@ $generated-image-folder: false !default;
 // If a base class is provided, then each class will extend it.
 //
 // If `$dimensions` is `true`, the sprite dimensions will specified.
-@mixin sprites-hdpi($map, $map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: false, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0, $set-background: false) {
+@mixin sprites-hdpi($map: $default-map, $map-hdpi: $default-map-hdpi, $sprites: sprite-names($map), $base-class: false, $dimensions: $sprite-hdpi-dimensions, $prefix: sprite-map-name($map), $offset-x: 0, $offset-y: 0, $set-background: $sprite-hdpi-set-background) {
   @if $set-background {
     .#{$prefix} {
       background-image: sprite-url($map);
@@ -148,26 +165,35 @@ $generated-image-folder: false !default;
   }
 }
 
-// Set a normal and HDPI background-image and (optionally) its dimensions
-@mixin background-image-hdpi($image, $image-hdpi, $dimensions: false) {
+// Set a normal and HDPI background and optionally, attributes and dimensions.
+//
+// If `$attributes` is `true`, background attributes will be specified.
+// If `$dimensions` is `true`, the sprite dimensions will specified.
+@mixin background-hdpi($image, $image-hdpi, $attributes: '', $dimensions: $background-hdpi-dimensions) {
   background-image: image-url($image);
+  @if $attributes != '' {
+    background: $attributes;
+  }
   @if $dimensions {
     @include image-dimensions($image);
   }
   @include media-hdpi {
     background-image: image-url($image-hdpi);
-    @include image-background-size($image);
+    @include background-size(image-width($image) image-height($image));
   }
 }
 
-// Same as `background-image-hdpi` but inline
-@mixin inline-background-image-hdpi($image, $image-hdpi, $dimensions: false) {
+// Same as `background-hdpi` but inline.
+@mixin inline-background-hdpi($image, $image-hdpi, $attributes: '', $dimensions: $background-hdpi-dimensions) {
   background-image: inline-image($image);
+  @if $attr != '' {
+    background: $attributes
+  }
   @if $dimensions {
     @include image-dimensions($image);
   }
   @include media-hdpi {
     background-image: inline-image($image-hdpi);
-    @include image-background-size($image);
+    @include background-size(image-width($image) image-height($image));
   }
 }
