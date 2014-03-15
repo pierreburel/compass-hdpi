@@ -58,8 +58,8 @@ $generated-image-folder: false !default;
 @mixin sprite-selectors-hdpi($map, $map-hdpi, $sprite-name, $full-sprite-name, $offset-x: 0, $offset-y: 0) {
   @each $selector in $sprite-selectors {
     @if sprite_has_selector($map, $sprite-name, $selector) {
-      &:#{$selector}, &.#{$full-sprite-name}_#{$selector}, &.#{$full-sprite-name}-#{$selector} {
-          @include sprite-background-position-hdpi($map, $map-hdpi, "#{$sprite-name}_#{$selector}", $offset-x, $offset-y);
+      &:#{$selector}, &.#{$full-sprite-name}#{$default-sprite-separator}#{$selector}, &.#{$full-sprite-name}-#{$selector} {
+          @include sprite-background-position-hdpi($map, $map-hdpi, "#{$sprite-name}#{$default-sprite-separator}#{$selector}", $offset-x, $offset-y);
       }
     }
   }
