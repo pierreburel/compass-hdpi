@@ -8,7 +8,7 @@ Since I'm not using Compass anymore, this plugin is kinda deprecated in favor of
 * https://github.com/w0rm/gulp-svgstore
 * https://github.com/filamentgroup/grunticon
  
-You may also check [sass-eyeglass](https://github.com/sass-eyeglass/eyeglass) and [eyeglass-sprinting](https://github.com/sass-eyeglass/eyeglass-spriting)
+You may also check [sass-eyeglass](https://github.com/sass-eyeglass/eyeglass) and [eyeglass-spriting](https://github.com/sass-eyeglass/eyeglass-spriting)
 
 # Compass HDPI
 
