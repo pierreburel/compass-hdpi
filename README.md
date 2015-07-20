@@ -1,3 +1,15 @@
+# Disclaimer
+
+Since I'm not using Compass anymore, this plugin is kinda deprecated in favor of [sass-resolution](https://github.com/pierreburel/sass-resolution) and Grunt/Gulp tasks for creating PNG or SVG sprites: 
+
+* https://github.com/Ensighten/grunt-spritesmith
+* https://github.com/twolfson/gulp.spritesmith
+* https://github.com/FWeinb/grunt-svgstore
+* https://github.com/w0rm/gulp-svgstore
+* https://github.com/filamentgroup/grunticon
+ 
+You may also check [sass-eyeglass](https://github.com/sass-eyeglass/eyeglass) and [eyeglass-sprinting](https://github.com/sass-eyeglass/eyeglass-spriting)
+
 # Compass HDPI
 
 Compass mixins for dealing with HDPI (a.k.a. Retina) sprites and images in your CSS.  
